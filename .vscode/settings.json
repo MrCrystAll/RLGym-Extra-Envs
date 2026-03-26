@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./cartpole/src",
+        "./lunar-lander/src",
+    ]
+}

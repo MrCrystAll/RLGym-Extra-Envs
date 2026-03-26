@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=64.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rlgym-cartpole"
+dynamic = ["version"]
+description = "The RLGym implementaton of the cartpole environment"
+readme = "README.md"
+authors = [
+    { name = "Mathieu Suchet", email = "msuchet63@gmail.com" }
+]
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+dependencies = ["rlgym"]
+# Optional: define classifiers for PyPI
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent"
+]
+
+[tool.setuptools.dynamic]
+version = {file = "VERSION"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.optional-dependencies]
+render = [
+    "pygame"
+]
