@@ -36,9 +36,6 @@ class LunarLander(
         turbulence_power: float = 1.5,
         seed: int = 123,
     ):
-        if continuous:
-            raise NotImplementedError("Continuous is not implemented yet. Sorry :/")
-
         action_parser = ContinuousAction() if continuous else DiscreteAction()
 
         super().__init__(
