@@ -19,7 +19,7 @@ class DefaultEngine(TransitionEngine[str, CartPoleState, int]):
         self.tau = 0.02  # seconds between state updates
         self.kinematics_integrator = "euler"
         self.theta_threshold_radians = 12 * 2 * math.pi / 360
-        self.x_threshold = 2.4
+        self.x_threshold = 20.4
         self._config = {
             self.CONFIG_KEY_GRAVITY: self.gravity,
             self.CONFIG_KEY_FORCE_MAGNITUDE: self.force_mag,
@@ -84,12 +84,7 @@ class DefaultEngine(TransitionEngine[str, CartPoleState, int]):
 
         # For the interested reader:
         # https://coneural.org/florian/papers/05_cart_pole.pdf
-        temp = (
-            force
-            + _pole_masslength
-            * pow(theta_dot, 2)
-            * sintheta
-        ) / _total_mass
+        temp = (force + _pole_masslength * pow(theta_dot, 2) * sintheta) / _total_mass
         thetaacc = (self.gravity * sintheta - costheta * temp) / (
             self._state.pole.length
             * (4.0 / 3.0 - self._state.pole.mass * pow(costheta, 2) / _total_mass)

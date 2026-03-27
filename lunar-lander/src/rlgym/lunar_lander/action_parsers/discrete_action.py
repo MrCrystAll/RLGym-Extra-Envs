@@ -4,10 +4,10 @@ import numpy as np
 
 from rlgym.api import ActionParser
 
-from rlgym.lunar_lander.state import LunarLanderState
+from rlgym.lunar_lander.api.state import LunarLanderState
 
 
-class LunarLanderDiscreteActionParser(
+class DiscreteAction(
     ActionParser[str, int, np.ndarray, LunarLanderState, tuple[str, int]]
 ):
     """

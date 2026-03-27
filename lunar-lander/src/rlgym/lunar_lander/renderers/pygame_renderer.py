@@ -1,31 +1,38 @@
-import numpy as np
-
 from Box2D import b2CircleShape
 
-import pygame
-from pygame import gfxdraw
+try:
+    import pygame
+    from pygame import gfxdraw
+except ImportError as exc:
+    raise ImportError(
+        'pygame is not installed. Run "pip install rlgym-lunar-lander[render]" to install it.'
+    ) from exc
 
 from rlgym.api import Renderer
 
-from rlgym.lunar_lander.common_values import TICKS_PER_SECOND, SCALE, VIEWPORT_H, VIEWPORT_W
-from rlgym.lunar_lander.state import LunarLanderState
+from rlgym.lunar_lander.api.common_values import (
+    TICKS_PER_SECOND,
+    SCALE,
+    VIEWPORT_H,
+    VIEWPORT_W,
+)
+from rlgym.lunar_lander.api.state import LunarLanderState
 
 
-class LunarLanderRenderer(Renderer[LunarLanderState]):
+class PygameRenderer(Renderer[LunarLanderState]):
     """
     Renders the simulation using pygame.
 
     Corresponds to Renderer in the RLGym API.
     """
 
-    def __init__(self, render_mode: str = "human") -> None:
-        self.render_mode = render_mode
+    def __init__(self) -> None:
         self._screen = None
         self._clock = None
         self._surf = None
 
     def render(self, state: LunarLanderState, shared_info: dict):
-        if self._screen is None and self.render_mode == "human":
+        if self._screen is None:
             pygame.init()
             pygame.display.init()
             self._screen = pygame.display.set_mode((VIEWPORT_W, VIEWPORT_H))
@@ -87,15 +94,10 @@ class LunarLanderRenderer(Renderer[LunarLanderState]):
 
         surf = pygame.transform.flip(surf, False, True)
 
-        if self.render_mode == "human":
-            self._screen.blit(surf, (0, 0))
-            pygame.event.pump()
-            self._clock.tick(TICKS_PER_SECOND)
-            pygame.display.flip()
-        elif self.render_mode == "rgb_array":
-            return np.transpose(
-                np.array(pygame.surfarray.pixels3d(surf)), axes=(1, 0, 2)
-            )
+        self._screen.blit(surf, (0, 0))
+        pygame.event.pump()
+        self._clock.tick(TICKS_PER_SECOND)
+        pygame.display.flip()
 
     def close(self) -> None:
         if self._screen is not None:

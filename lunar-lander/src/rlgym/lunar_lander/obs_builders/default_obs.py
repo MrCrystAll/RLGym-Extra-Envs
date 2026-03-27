@@ -4,19 +4,17 @@ import numpy as np
 
 from rlgym.api import ObsBuilder
 
-from rlgym.lunar_lander.common_values import (
+from rlgym.lunar_lander.api.common_values import (
     TICKS_PER_SECOND,
     LEG_DOWN,
     SCALE,
     VIEWPORT_H,
     VIEWPORT_W,
 )
-from rlgym.lunar_lander.state import LunarLanderState
+from rlgym.lunar_lander.api.state import LunarLanderState
 
 
-class LunarLanderObsBuilder(
-    ObsBuilder[str, np.ndarray, LunarLanderState, tuple[str, int]]
-):
+class DefaultObs(ObsBuilder[str, np.ndarray, LunarLanderState, tuple[str, int]]):
     """
     Builds the 8-dimensional observation vector from the current state.
 

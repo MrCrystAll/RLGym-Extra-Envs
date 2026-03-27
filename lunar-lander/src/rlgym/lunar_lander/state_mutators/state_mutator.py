@@ -3,7 +3,7 @@ import numpy as np
 
 from rlgym.api import StateMutator
 
-from rlgym.lunar_lander.state import LunarLanderState
+from rlgym.lunar_lander.api.state import LunarLanderState
 
 
 class InitialBumpMutator(StateMutator[LunarLanderState]):
@@ -27,5 +27,21 @@ class WindMutator(StateMutator[LunarLanderState]):
         self.wind_max_speed = wind_max_speed
 
     def apply(self, state: LunarLanderState, shared_info: Dict[str, Any]) -> None:
-        state.config.wind_power = self.rng.uniform(-1, 1) * self.wind_max_speed
-        print(f"Wind power: {state.config.wind_power}")
+        state.config.wind_power = self.rng.uniform(0, self.wind_max_speed)
+
+
+class TurbulenceMutator(StateMutator[LunarLanderState]):
+    def __init__(self, seed: int = 123, max_perturbation: float = 1.5) -> None:
+        self.max_perturbation = max_perturbation
+        self.rng = np.random.RandomState(seed)
+
+    def apply(self, state: LunarLanderState, shared_info: Dict[str, Any]) -> None:
+        state.config.turbulence_power = self.rng.uniform(0, self.max_perturbation)
+
+
+class GravityMutator(StateMutator[LunarLanderState]):
+    def __init__(self, gravity: float = -10.0) -> None:
+        self.gravity = gravity
+
+    def apply(self, state: LunarLanderState, shared_info: Dict[str, Any]) -> None:
+        state.config.gravity = self.gravity

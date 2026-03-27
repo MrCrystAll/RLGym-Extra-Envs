@@ -3,16 +3,16 @@ requires = ["setuptools>=64.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "rlgym-lunar-lander"
+name = "rlgym-extra-envs"
 dynamic = ["version"]
-description = "The RLGym implementaton of the lunar lander environment"
+description = "Extra environments for RLGym"
 readme = "README.md"
 authors = [
     { name = "Mathieu Suchet", email = "msuchet63@gmail.com" }
 ]
 license-files = ["LICENSE"]
 requires-python = ">=3.10"
-dependencies = ["rlgym", "box2d ==2.3.10", "numpy"]
+dependencies = ["rlgym"]
 # Optional: define classifiers for PyPI
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -26,6 +26,10 @@ version = {file = "VERSION"}
 where = ["src"]
 
 [project.optional-dependencies]
-render = [
-    "pygame-ce", "swig ==4.*"
+cartpole = [
+    "rlgym-cartpole @ file:./cartpole"
+]
+
+lunar-lander = [
+    "rlgym-lunar-lander @ file:./lunar-lander"
 ]

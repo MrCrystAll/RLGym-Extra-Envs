@@ -15,7 +15,7 @@ import numpy as np
 
 from rlgym.api import TransitionEngine
 
-from rlgym.lunar_lander.common_values import (
+from rlgym.lunar_lander.api.common_values import (
     AGENT_NAME,
     TICKS_PER_SECOND,
     LANDER_POLY,
@@ -31,7 +31,7 @@ from rlgym.lunar_lander.common_values import (
     VIEWPORT_H,
     VIEWPORT_W,
 )
-from rlgym.lunar_lander.state import LunarLanderConfig, LunarLanderState
+from rlgym.lunar_lander.api.state import LunarLanderConfig, LunarLanderState
 
 
 class _ContactDetector(b2ContactListener):
@@ -55,7 +55,7 @@ class _ContactDetector(b2ContactListener):
                 s.legs[i].ground_contact = False
 
 
-class LunarLanderTransitionEngine(TransitionEngine[str, LunarLanderState, np.ndarray]):
+class DefaultEngine(TransitionEngine[str, LunarLanderState, np.ndarray]):
     """
     Advances the Box2D simulation by one timestep and returns an updated
     state (with engine forces applied and the world stepped).

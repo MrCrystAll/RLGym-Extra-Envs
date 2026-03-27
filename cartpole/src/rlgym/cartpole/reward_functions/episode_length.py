@@ -18,7 +18,9 @@ class EpisodeLengthReward(RewardFunction[str, CartPoleState, float]):
         shared_info: Dict[str, Any],
     ) -> Dict[str, float]:
         return {
-            "cart": int(not is_terminated["cart"]) - 1 if self._sutton_barto_reward else 1
+            "cart": int(not is_terminated["cart"]) - 1
+            if self._sutton_barto_reward
+            else 1
         }
 
     def reset(
