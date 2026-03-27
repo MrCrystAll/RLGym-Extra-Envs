@@ -28,16 +28,16 @@ class ContinuousAction(
         state: LunarLanderState,
         shared_info: Dict[str, Any],
     ) -> Dict[str, np.ndarray]:
-        _parsed_actions = {}
+        _clipped_actions = {}
 
         for agent, action in actions.items():
             assert action.size == 2, (
                 f"Expected 2 bins in the actions but got {action.size}"
             )
 
-            _parsed_actions[agent] = np.clip(action, -1, 1)
+            _clipped_actions[agent] = np.clip(action, -1, 1)
 
-        return _parsed_actions
+        return _clipped_actions
 
     def get_action_space(self, agent: str) -> tuple[str, int]:
         return "continuous", 2
