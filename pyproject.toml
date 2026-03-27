@@ -33,3 +33,8 @@ cartpole = [
 lunar-lander = [
     "rlgym-lunar-lander @ file:./lunar-lander"
 ]
+
+all = [
+    "rlgym-cartpole @ file:./cartpole",
+    "rlgym-lunar-lander @ file:./lunar-lander",
+]

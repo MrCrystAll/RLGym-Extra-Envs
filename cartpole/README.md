@@ -7,6 +7,7 @@ This is an implementation of the [RLGym](https://github.com/lucas-emery/rocket-l
 You can install this package with the following command
 
 ```python
+pip install rlgym-extra-envs[cartpole] # Everything but the render
 pip install rlgym-cartpole # Everything but the render
 pip install rlgym-cartpole[render] # Everything
 ```
